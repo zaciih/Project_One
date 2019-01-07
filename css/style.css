@@ -1,0 +1,11 @@
+h1 {
+  display: flex;
+  justify-content: center;
+}
+
+.game_container {
+  height: 600px;
+  width: 600px;
+  background-color: gainsboro;
+  margin: auto;
+}
