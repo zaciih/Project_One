@@ -3,6 +3,19 @@ h1 {
   justify-content: center;
 }
 
+@keyframes animatedBackground {
+  to {background-position: 0 -241%;}
+}
+
+#background {
+  width: inherit;
+  height: inherit;
+  background-image: url("../images/space4.jpg");
+  background-position: 0px 0px;
+  background-repeat: repeat-y;
+  animation: animatedBackground 15s linear infinite;
+}
+
 .game_container {
   position: relative;
   height: 600px;

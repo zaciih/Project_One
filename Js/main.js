@@ -7,6 +7,7 @@ $(function(){
   var container_right = container_left + container.width();
   var container_top = container.offset().top;
   var container_bottom = container_top + container.height();
+
 //reference the rocket
   var rocket = $("#rocket");
 //rocket position
@@ -72,41 +73,42 @@ $(function(){
   var interval;
 //function to call every frame (60fps)
   interval = setInterval(function(){
-    //rocket movement
-      rocket.css({
-        'left': rocket_posx + "px",
-        'top': rocket_posy + "px"
-      });
 
-    //rocket collision
-      var rocket_left = rocket.offset().left
-      var rocket_right = rocket_left + rocket.width();
-      var rocket_top = rocket.offset().top;
-      var rocket_bottom = rocket_top + rocket.height();
-    //if rocket hits left wall stop, else move left
-      if (rocket_left >= container_left) {
-        if (left == true){
-          rocket_posx -=2;
+  //rocket movement
+    rocket.css({
+      'left': rocket_posx + "px",
+      'top': rocket_posy + "px"
+    });
+
+  //rocket collision
+    var rocket_left = rocket.offset().left
+    var rocket_right = rocket_left + rocket.width();
+    var rocket_top = rocket.offset().top;
+    var rocket_bottom = rocket_top + rocket.height();
+  //if rocket hits left wall stop, else move left
+    if (rocket_left >= container_left) {
+      if (left == true){
+        rocket_posx -=2;
+      }
+    }
+  //if rocket hits right wall stop, else move right
+    if (rocket_right <= container_right){
+      if (right == true){
+      rocket_posx +=2;
+      }
+    }
+  //if rocket hits top wall stop, else move up
+    if (rocket_top >= container_top){
+      if (up == true){
+        rocket_posy -=1;
+      }
+    }
+    //if rocket hits bottom wall stop, else move down
+      if (rocket_bottom <= container_bottom){
+        if (down == true){
+          rocket_posy +=1.5;
         }
       }
-    //if rocket hits right wall stop, else move right
-      if (rocket_right <= container_right){
-        if (right == true){
-        rocket_posx +=2;
-        }
-      }
-    //if rocket hits top wall stop, else move up
-      if (rocket_top >= container_top){
-        if (up == true){
-          rocket_posy -=1;
-        }
-      }
-      //if rocket hits bottom wall stop, else move down
-        if (rocket_bottom <= container_bottom){
-          if (down == true){
-            rocket_posy +=1.5;
-          }
-        }
   }, 10);
 
 
