@@ -13,6 +13,7 @@ h1 {
 #rocket {
   height: 50px;
   width: 30px;
-  background-color: black;
+  /* background-color: black; */
   position: absolute;
+  content:url("../images/rocket.png");
 }
