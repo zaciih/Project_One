@@ -1,7 +1,7 @@
 $(function(){
 
 //refernce game area
-  var container = $("game_area");
+  var container = $("#game_area");
 //game_area collision
   var container_left = container.offset().left
   var container_right = container_left + container.width();
@@ -15,7 +15,7 @@ $(function(){
   var rocket_top = rocket.offset().top;
   var rocket_bottom = rocket_top + rocket.height();
 //rocket position
-  var rocket_posx = 0;
+  var rocket_posx = container_left;
 //left arrow
   var left = false;
 //right arrow
