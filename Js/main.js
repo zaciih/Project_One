@@ -9,11 +9,6 @@ $(function(){
   var container_bottom = container_top + container.height();
 //reference the rocket
   var rocket = $("#rocket");
-//rocket collision
-  var rocket_left = rocket.offset().left
-  var rocket_right = rocket_left + rocket.width();
-  var rocket_top = rocket.offset().top;
-  var rocket_bottom = rocket_top + rocket.height();
 //rocket position
   var rocket_posx = container_left;
 //left arrow
@@ -28,7 +23,7 @@ $(function(){
         case 37: // left
           left = true;
           rocket_moving = true;
-          console.log(left);
+          // console.log(rocket_left);
         break;
 
         case 38: // up
@@ -37,7 +32,7 @@ $(function(){
         case 39: // right
           right = true;
           rocket_moving = true;
-          console.log(right);
+          // console.log(right);
         break;
 
         case 40: // down
@@ -52,7 +47,7 @@ $(function(){
     switch(e.which) {
         case 37: // left
           left = false;
-          console.log(left);
+          // console.log(left);
         break;
 
         case 38: // up
@@ -60,7 +55,7 @@ $(function(){
 
         case 39: // right
           right = false;
-          console.log(right);
+          // console.log(right);
         break;
 
         case 40: // down
@@ -79,16 +74,22 @@ $(function(){
         'left': rocket_posx + "px"
       });
 
-      if (left == true){
-        if (rocket) {
+    //rocket collision
+      var rocket_left = rocket.offset().left
+      var rocket_right = rocket_left + rocket.width();
+      var rocket_top = rocket.offset().top;
+      var rocket_bottom = rocket_top + rocket.height();
 
+      if (rocket_left >= container_left) {
+        if (left == true){
+          rocket_posx -=2;
         }
-        rocket_posx -=2;
       }
-      if (right == true){
+      if (rocket_right <= container_right){
+        if (right == true){
         rocket_posx +=2;
+        }
       }
-
   }, 10);
 
 
