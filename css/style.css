@@ -9,3 +9,10 @@ h1 {
   background-color: gainsboro;
   margin: auto;
 }
+
+#rocket {
+  height: 50px;
+  width: 30px;
+  background-color: black;
+  position: absolute;
+}
