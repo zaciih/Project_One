@@ -4,6 +4,7 @@ h1 {
 }
 
 .game_container {
+  position: relative;
   height: 600px;
   width: 600px;
   background-color: gainsboro;
@@ -11,9 +12,8 @@ h1 {
 }
 
 #rocket {
-  height: 50px;
-  width: 30px;
-  /* background-color: black; */
+  /* transform: scale(0.5); */
   position: absolute;
+  height: 50px;
   content:url("../images/rocket.png");
 }

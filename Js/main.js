@@ -10,8 +10,8 @@ $(function(){
 //reference the rocket
   var rocket = $("#rocket");
 //rocket position
-  var rocket_posx = container_left;
-  var rocket_posy = (container_top + container_bottom)/2;
+  var rocket_posx = container.width()/2 - rocket.width()/2;
+  var rocket_posy = container.height()/2 - rocket.height()/2;
 //left arrow
   var left = false;
 //right arrow
@@ -104,7 +104,7 @@ $(function(){
       //if rocket hits bottom wall stop, else move down
         if (rocket_bottom <= container_bottom){
           if (down == true){
-            rocket_posy +=1;
+            rocket_posy +=1.5;
           }
         }
   }, 10);
