@@ -10,7 +10,7 @@ h1 {
 #background {
   width: inherit;
   height: inherit;
-  background-image: url("../images/space4.jpg");
+  background-image: url("../images/space.jpg");
   background-position: 0px 0px;
   background-repeat: repeat-y;
   animation: animatedBackground 15s linear infinite;

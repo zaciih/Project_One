@@ -12,7 +12,7 @@ $(function(){
   var rocket = $("#rocket");
 //rocket position
   var rocket_posx = container.width()/2 - rocket.width()/2;
-  var rocket_posy = container.height()/2 - rocket.height()/2;
+  var rocket_posy = container.height()-100 - rocket.height()/2;
 //left arrow
   var left = false;
 //right arrow
