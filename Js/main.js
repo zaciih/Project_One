@@ -1,5 +1,7 @@
 $(function(){
 
+
+
 //refernce game area
   var container = $("#game_area");
 //game_area collision
@@ -10,6 +12,8 @@ $(function(){
 
 //reference the rocket
   var rocket = $("#rocket");
+
+  var rocket_top = rocket.offset().top;
 //rocket position
   var rocket_posx = container.width()/2 - rocket.width()/2;
   var rocket_posy = container.height()-100 - rocket.height()/2;
@@ -21,6 +25,15 @@ $(function(){
   var up = false;
 //down arrow
   var down = false;
+
+//reference the lazers
+  var lazers = $(".lazers");
+//lazer position
+  var lazer_posx = rocket_posx;
+  var lazer_posy = rocket_posy;
+//shoot
+  var shoot = false;
+
 
 
 //arrow key pressed
@@ -40,6 +53,10 @@ $(function(){
 
         case 40: // down
           down = true;
+        break;
+
+        case 32: //spacebar
+          shoot = true;
         break;
 
         default: return; // exit this handler for other keys
@@ -63,6 +80,10 @@ $(function(){
 
         case 40: // down
           down = false;
+        break;
+
+        case 32: //spacebar
+          shoot = false;
         break;
 
         default: return; // exit this handler for other keys
@@ -103,17 +124,39 @@ $(function(){
         rocket_posy -=1;
       }
     }
-    //if rocket hits bottom wall stop, else move down
-      if (rocket_bottom <= container_bottom){
-        if (down == true){
-          rocket_posy +=1.5;
-        }
+  //if rocket hits bottom wall stop, else move down
+    if (rocket_bottom <= container_bottom){
+      if (down == true){
+        rocket_posy +=1.5;
       }
+    }
+
+  // //lazer movement
+  //   lazers.css({
+  //     'left': lazer_posx + "px",
+  //     'top': lazer_posy + "px"
+  //   });
+    //spacebar to shoot
+    if (shoot == true){
+      fireBullet();
+
+    }
+
   }, 10);
 
-
-
-
+  function fireBullet() {
+    container.prepend("<div class='lazers'></div>");
+  //reference the lazers
+    var lazers = $(".lazers");
+  //lazer position
+    var lazer_posx = rocket_posx;
+    var lazer_posy = rocket_posy;
+    //lazer movement
+      lazers.css({
+        'left': lazer_posx + "px",
+        'top': lazer_posy + "px"
+      });
+  };
 
 
 

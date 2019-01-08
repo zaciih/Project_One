@@ -8,12 +8,12 @@ h1 {
 }
 
 #background {
-  width: inherit;
-  height: inherit;
-  background-image: url("../images/space.jpg");
-  background-position: 0px 0px;
-  background-repeat: repeat-y;
   animation: animatedBackground 15s linear infinite;
+  background-image: url("../images/space.jpg");
+  background-position: 0 0;
+  background-repeat: repeat-y;
+  height: inherit;
+  width: inherit;
 }
 
 .game_container {
@@ -29,4 +29,16 @@ h1 {
   position: absolute;
   height: 50px;
   content:url("../images/rocket.png");
+}
+
+/* @keyframes animatedLazers {
+  to {background-position: 0 100%;}
+} */
+
+.lazers {
+  position: absolute;
+  width: 20px;
+  height: 4px;
+  background-color: yellow;
+  /* animation: animatedLazers 5s linear infinite; */
 }
