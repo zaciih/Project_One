@@ -20,25 +20,27 @@ h1 {
   position: relative;
   height: 600px;
   width: 600px;
-  background-color: gainsboro;
+  /* background-color: gainsboro; */
   margin: auto;
 }
 
 #rocket {
-  /* transform: scale(0.5); */
   position: absolute;
   height: 50px;
   content:url("../images/rocket.png");
 }
 
-/* @keyframes animatedLazers {
-  to {background-position: 0 100%;}
-} */
+h2 {
+  position: absolute;
+  font-size: 20px;
+  font-family: sans-serif;
+  color: white;
+  margin: 20px;
+}
 
 .lazers {
   position: absolute;
   width: 2px;
-  height: 10px;
+  height: 5px;
   background-color: yellow;
-  /* animation: animatedLazers 5s linear infinite; */
 }

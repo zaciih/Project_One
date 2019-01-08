@@ -29,8 +29,9 @@ $(function(){
   var lazer_posy = rocket_posy;
 //shoot
   var shoot = false;
-
-
+//bullet count
+  var bullet_count = 100;
+  var ammo = $("#ammo");
 
 //arrow key pressed
   $(document).keydown(function(e) {
@@ -96,6 +97,8 @@ $(function(){
   });
 
   var shoot_interval;
+  var bullet_interval;
+  var ammo_interval;
   var interval;
 //function to call every frame (60fps)
   interval = setInterval(function(){
@@ -135,15 +138,30 @@ $(function(){
         rocket_posy +=1.5;
       }
     }
-  //spacebar to shoot
-    if (shoot == true){
-      fireBullet();
-    }
   }, 10);
 
 
-//function to call every second
+//function to shoot every frame
   shoot_interval = setInterval(function(){
+    //spacebar to shoot
+      if (shoot == true && bullet_count > 0){
+        fireBullet();
+        bullet_count --;
+      }
+    ammo.html(bullet_count + "%");
+  },50);
+  //function to refresh bullets every 2 seconds
+    ammo_interval = setInterval(function(){
+      if (bullet_count < 100 && shoot == false){
+        bullet_count++;
+      }
+    }, 100);
+//function to move bullets every frame
+  bullet_interval = setInterval(function(){
+    moveBullet();
+  }, 10);
+//set lazer position and fire upwards
+  function moveBullet() {
     $(".lazers").each(function(){
       y_pos = $(this).offset().top - 91;
       if (y_pos <= 0) {
@@ -152,18 +170,16 @@ $(function(){
         $(this).css({'top': y_pos + "px"})
       }
     })
-  },10);
-
-
+  };
   function fireBullet() {
-    container.append("<div class='lazers'></div>");
+    container.prepend("<div class='lazers'></div>");
   //reference the lazers
     var lazers = $(".lazers");
   //lazer position
     var lazer_posx = rocket_posx + rocket.width()/2;
     var lazer_posy = rocket_posy;
   //lazer movement
-    lazers.last().css({
+    lazers.first().css({
       'left': lazer_posx + "px",
       'top': lazer_posy + "px"
     });
