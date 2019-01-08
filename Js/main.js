@@ -12,8 +12,6 @@ $(function(){
 
 //reference the rocket
   var rocket = $("#rocket");
-
-  var rocket_top = rocket.offset().top;
 //rocket position
   var rocket_posx = container.width()/2 - rocket.width()/2;
   var rocket_posy = container.height()-100 - rocket.height()/2;
@@ -40,18 +38,22 @@ $(function(){
   $(document).keydown(function(e) {
     switch(e.which) {
         case 37: // left
+        case 65: // left
           left = true;
         break;
 
         case 38: // up
+        case 87: // up
           up = true;
         break;
 
         case 39: // right
+        case 68: // right
           right = true;
         break;
 
         case 40: // down
+        case 83: // down
           down = true;
         break;
 
@@ -67,18 +69,22 @@ $(function(){
   $(document).keyup(function(e) {
     switch(e.which) {
         case 37: // left
+        case 65: // left
           left = false;
         break;
 
         case 38: // up
+        case 87: // up
           up = false;
         break;
 
         case 39: // right
+        case 68: // right
           right = false;
         break;
 
         case 40: // down
+        case 83: // down
           down = false;
         break;
 
@@ -91,6 +97,7 @@ $(function(){
     e.preventDefault(); // prevent the default action (scroll / move caret)
   });
 
+  var shoot_interval;
   var interval;
 //function to call every frame (60fps)
   interval = setInterval(function(){
@@ -130,32 +137,48 @@ $(function(){
         rocket_posy +=1.5;
       }
     }
-
-  // //lazer movement
-  //   lazers.css({
-  //     'left': lazer_posx + "px",
-  //     'top': lazer_posy + "px"
-  //   });
-    //spacebar to shoot
+  //spacebar to shoot
     if (shoot == true){
       fireBullet();
-
     }
-
   }, 10);
 
+
+//function to call every second
+  shoot_interval = setInterval(function(){
+    //reference the lazers
+    var lazers = $(".lazers");
+
+    for (var i = 0; i < lazers.length; i++) {
+      // var lazer_y = lazers[i].offset().top;
+      // if (lazers[i].y <= 0){
+      //   lazers[i].remove();
+      // }
+    //   // console.log(lazers.first());
+    //   // lazer_posx = lazers[i].offset().left - 10;
+    //   // lazer_posy = lazers[i].offset().top - 10;
+    lazers.css({
+      'top': lazer_posy -=1
+    });
+  }
+    //     'top': lazer_posy -- + "px"
+    //   });
+    // }
+  },10);
+
+
   function fireBullet() {
-    container.prepend("<div class='lazers'></div>");
+    container.append("<div class='lazers'></div>");
   //reference the lazers
     var lazers = $(".lazers");
   //lazer position
-    var lazer_posx = rocket_posx;
+    var lazer_posx = rocket_posx + rocket.width()/2;
     var lazer_posy = rocket_posy;
-    //lazer movement
-      lazers.css({
-        'left': lazer_posx + "px",
-        'top': lazer_posy + "px"
-      });
+  //lazer movement
+    lazers.last().css({
+      'left': lazer_posx + "px",
+      'top': lazer_posy + "px"
+    });
   };
 
 

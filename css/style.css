@@ -37,8 +37,8 @@ h1 {
 
 .lazers {
   position: absolute;
-  width: 20px;
-  height: 4px;
+  width: 2px;
+  height: 10px;
   background-color: yellow;
   /* animation: animatedLazers 5s linear infinite; */
 }
