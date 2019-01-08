@@ -99,6 +99,7 @@ $(function(){
   var shoot_interval;
   var bullet_interval;
   var ammo_interval;
+  var deplete_interval;
   var interval;
 //function to call every frame (60fps)
   interval = setInterval(function(){
@@ -143,19 +144,24 @@ $(function(){
 
 //function to shoot every frame
   shoot_interval = setInterval(function(){
-    //spacebar to shoot
-      if (shoot == true && bullet_count > 0){
-        fireBullet();
-        bullet_count --;
-      }
+  //spacebar to shoot
+    if (shoot == true && bullet_count > 0){
+      fireBullet();
+    }
     ammo.html(bullet_count + "%");
-  },50);
-  //function to refresh bullets every 2 seconds
-    ammo_interval = setInterval(function(){
-      if (bullet_count < 100 && shoot == false){
-        bullet_count++;
-      }
-    }, 100);
+  }, 100);
+//function to deplete energy
+  deplete_interval = setInterval(function(){
+    if (shoot == true && bullet_count > 0){
+      bullet_count --;
+    }
+  }, 40);
+//function to refresh bullets every 2 seconds
+  ammo_interval = setInterval(function(){
+    if (bullet_count < 100 && shoot == false){
+      bullet_count++;
+    }
+  }, 100);
 //function to move bullets every frame
   bullet_interval = setInterval(function(){
     moveBullet();
@@ -176,7 +182,7 @@ $(function(){
   //reference the lazers
     var lazers = $(".lazers");
   //lazer position
-    var lazer_posx = rocket_posx + rocket.width()/2;
+    var lazer_posx = rocket_posx + 3.75;
     var lazer_posy = rocket_posy;
   //lazer movement
     lazers.first().css({

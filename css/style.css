@@ -40,7 +40,8 @@ h2 {
 
 .lazers {
   position: absolute;
-  width: 2px;
-  height: 5px;
-  background-color: yellow;
+  width: auto;
+  height: auto;
+  content:url("../images/lazer.png");
+  transform: rotate(-90deg);
 }
