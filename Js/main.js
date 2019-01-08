@@ -1,7 +1,5 @@
 $(function(){
 
-
-
 //refernce game area
   var container = $("#game_area");
 //game_area collision
@@ -146,24 +144,14 @@ $(function(){
 
 //function to call every second
   shoot_interval = setInterval(function(){
-    //reference the lazers
-    var lazers = $(".lazers");
-
-    for (var i = 0; i < lazers.length; i++) {
-      // var lazer_y = lazers[i].offset().top;
-      // if (lazers[i].y <= 0){
-      //   lazers[i].remove();
-      // }
-    //   // console.log(lazers.first());
-    //   // lazer_posx = lazers[i].offset().left - 10;
-    //   // lazer_posy = lazers[i].offset().top - 10;
-    lazers.css({
-      'top': lazer_posy -=1
-    });
-  }
-    //     'top': lazer_posy -- + "px"
-    //   });
-    // }
+    $(".lazers").each(function(){
+      y_pos = $(this).offset().top - 91;
+      if (y_pos <= 0) {
+        $(this).remove();
+      } else {
+        $(this).css({'top': y_pos + "px"})
+      }
+    })
   },10);
 
 
@@ -180,7 +168,5 @@ $(function(){
       'top': lazer_posy + "px"
     });
   };
-
-
 
 })
