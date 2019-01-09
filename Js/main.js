@@ -2,12 +2,14 @@ $(function(){
 
 //refernce game area
   var container = $("#game_area");
+//reference to enemies
+  var enemy = $(".enemy");
 //game_area collision
   var container_left = container.offset().left;
   var container_right = container_left + container.width();
   var container_top = container.offset().top;
   var container_bottom = container_top + container.height();
-  var spawn_width = container.width();
+  var spawn_width = container.width() - 60;
   var spawn_height = 0;
 
 //reference the rocket
@@ -35,8 +37,6 @@ $(function(){
   var bullet_count = 100;
   var ammo = $("#ammo");
 
-//reference to enemies
-  var enemy = $(".enemy");
 //arrow key pressed
   $(document).keydown(function(e) {
     switch(e.which) {
@@ -206,10 +206,11 @@ $(function(){
       'left': enemy_posx + "px",
       'top': enemy_posy + "px"
     });
+    console.log(enemy_posx);
   };
   function move_enemy() {
     $(".enemy").each(function(){
-      y_pos = $(this).offset().top + 91;
+      y_pos = $(this).offset().top - 79;
       if (y_pos >= 600) {
         $(this).remove();
       } else {
@@ -219,6 +220,6 @@ $(function(){
   };
   enemy_interval = setInterval(function(){
     move_enemy();
-  }, 1000);
+  }, 10);
 
 });
