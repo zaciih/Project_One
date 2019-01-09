@@ -30,12 +30,24 @@ h1 {
   content:url("../images/rocket.png");
 }
 
-h2 {
+.info_container {
   position: absolute;
+  display: flex;
+  justify-content: space-between;
+}
+
+#ammo {
   font-size: 20px;
   font-family: sans-serif;
   color: white;
-  margin: 20px;
+  margin-left: 20px;
+}
+
+#level {
+  font-size: 20px;
+  font-family: sans-serif;
+  color: white;
+  margin-left: 20px;
 }
 
 .lazers {
