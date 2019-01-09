@@ -2,11 +2,23 @@ $(function(){
 
 //refernce game area
   var container = $("#game_area");
+//reference to enemies
+  var enemy = $(".enemy");
+
+  var progRunning = true;
+
 //game_area collision
-  var container_left = container.offset().left
+  var container_left = container.offset().left;
   var container_right = container_left + container.width();
   var container_top = container.offset().top;
   var container_bottom = container_top + container.height();
+  var spawn_width = container.width() - 60;
+  var spawn_height = 0;
+  var spawn_rate = 10000;
+  var level = $("#level");
+  var level_up = 1;
+
+  level.html("Level: " + level_up);
 
 //reference the rocket
   var rocket = $("#rocket");
@@ -60,6 +72,10 @@ $(function(){
           shoot = true;
         break;
 
+        case 13: //enter
+          progRunning = false;
+        break;
+
         default: return; // exit this handler for other keys
     }
     e.preventDefault(); // prevent the default action (scroll / move caret)
@@ -100,10 +116,12 @@ $(function(){
   var bullet_interval;
   var ammo_interval;
   var deplete_interval;
+  var enemy_interval;
+  var spawn_interval;
+  var level_interval;
   var interval;
 //function to call every frame (60fps)
   interval = setInterval(function(){
-
   //rocket movement
     rocket.css({
       'left': rocket_posx + "px",
@@ -191,4 +209,63 @@ $(function(){
     });
   };
 
-})
+  loop();
+
+  function spawn_enemy(){
+    container.prepend("<div class='enemy'></div>");
+    var enemy = $(".enemy");
+    var enemy_posx = Math.floor(Math.random()* spawn_width);
+    var enemy_posy = spawn_height;
+    enemy.first().css({
+      'left': enemy_posx + "px",
+      'top': enemy_posy + "px"
+    });
+  };
+
+  function move_enemy() {
+    $(".enemy").each(function(){
+      y_pos = $(this).offset().top - 79;
+      if (y_pos >= 560) {
+        $(this).remove();
+      } else {
+        $(this).css({'top': y_pos + "px"})
+      }
+    })
+  };
+  enemy_interval = setInterval(function(){
+    move_enemy();
+  }, 10);
+
+  spawn_interval = setInterval(function(){
+    if (spawn_rate > 500) {
+      spawn_rate = spawn_rate - 25;
+    } else {
+      clearInterval(level_interval);
+      clearInterval(spawn_interval);
+    }
+    console.log(spawn_rate);
+  }, 1000);
+
+  level_interval = setInterval(function(){
+    level_up++;
+    level.html("Level: " + level_up);
+  }, 20000);
+
+//random loop to spawn enemy
+  function loop(){
+    var random = Math.round(Math.random()* spawn_rate);
+    setTimeout(function(){
+      spawn_enemy();
+      loop();
+    }, random);
+  };
+
+
+
+
+
+
+
+
+
+});
