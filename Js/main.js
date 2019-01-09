@@ -17,7 +17,10 @@ $(function(){
   var spawn_rate = 10000;
   var level = $("#level");
   var level_up = 1;
+  var earth = $("#earth");
+  var earth_hp = 100;
 
+  earth.html("Earth HP: " + earth_hp + "%");
   level.html("Level: " + level_up);
 
 //reference the rocket
@@ -157,6 +160,7 @@ $(function(){
         rocket_posy +=1.5;
       }
     }
+
   }, 10);
 
 
@@ -183,6 +187,7 @@ $(function(){
 //function to move bullets every frame
   bullet_interval = setInterval(function(){
     moveBullet();
+      // collision_check(enemy, lazers);
   }, 10);
 //set lazer position and fire upwards
   function moveBullet() {
@@ -209,6 +214,18 @@ $(function(){
     });
   };
 
+  // function collision_check(enemy, lazers){
+  //   enemy.each(function() {
+  //     enemy_y_pos = enemy.offset().top - enemy.height();
+  //   });
+  //   lazers.each(function(){
+  //     lazers_y_pos = lazers.offset().top;
+  //   });
+  //   if (lazers_y_pos = enemy_y_pos){
+  //     lazers.remove();
+  //   }
+  // }
+
   loop();
 
   function spawn_enemy(){
@@ -227,6 +244,10 @@ $(function(){
       y_pos = $(this).offset().top - 79;
       if (y_pos >= 560) {
         $(this).remove();
+        if (earth_hp > 0){
+          earth_hp -= 5;
+          earth.html("Earth HP: " + earth_hp + "%");
+        }
       } else {
         $(this).css({'top': y_pos + "px"})
       }
@@ -243,7 +264,6 @@ $(function(){
       clearInterval(level_interval);
       clearInterval(spawn_interval);
     }
-    console.log(spawn_rate);
   }, 1000);
 
   level_interval = setInterval(function(){

@@ -50,6 +50,13 @@ h1 {
   margin-left: 20px;
 }
 
+#earth {
+  font-size: 20px;
+  font-family: sans-serif;
+  color: white;
+  margin-left: 20px;
+}
+
 .lazers {
   position: absolute;
   width: auto;
