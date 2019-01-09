@@ -248,7 +248,7 @@ $(function(){
       enemy.remove();
       enemy_hits = 0;
       score.html("Score: " + score_up)
-    }, 500);
+    }, 150);
     if (enemy_hits <= 1){
       score_up += 10;
     }
