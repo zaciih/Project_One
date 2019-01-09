@@ -4,6 +4,7 @@ $(function(){
   var container = $("#game_area");
 //reference to enemies
   var enemy = $(".enemy");
+  var enemy_hits = 0;
 
   var progRunning = true;
 
@@ -226,20 +227,32 @@ $(function(){
         lazers_right = $(this).offset().left + $(this).width();
 
         if (lazers_top <= enemy_bottom && lazers_left <= enemy_right && lazers_right >= enemy_left){
+          if (enemy_hits < 1){
           $(this).remove();
+          enemy_hits++;
           death_anim(enemy);
-          score_up += 10;
-          score.html("Score: " + score_up);
+        }
         }
       });
     });
   }
 
   function death_anim(enemy){
-    enemy.remove();
+    enemy.css({
+      content:'url(images/imp_death_blue.gif)',
+    });
+    setTimeout(function(){
+      enemy.css({
+        content:''
+      });
+      enemy.remove();
+      enemy_hits = 0;
+      score.html("Score: " + score_up)
+    }, 500);
+    if (enemy_hits <= 1){
+      score_up += 10;
+    }
   }
-
-  loop();
 
   function spawn_enemy(){
     container.prepend("<div class='enemy'></div>");
@@ -283,6 +296,7 @@ $(function(){
     level.html("Level: " + level_up);
   }, 20000);
 
+  loop();
 //random loop to spawn enemy
   function loop(){
     var random = Math.round(Math.random()* spawn_rate);
