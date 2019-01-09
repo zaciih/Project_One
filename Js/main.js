@@ -227,12 +227,16 @@ $(function(){
 
         if (lazers_top <= enemy_bottom && lazers_left <= enemy_right && lazers_right >= enemy_left){
           $(this).remove();
-          enemy.remove();
+          death_anim(enemy);
           score_up += 10;
           score.html("Score: " + score_up);
         }
       });
     });
+  }
+
+  function death_anim(enemy){
+    enemy.remove();
   }
 
   loop();
