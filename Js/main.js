@@ -187,7 +187,7 @@ $(function(){
 //function to move bullets every frame
   bullet_interval = setInterval(function(){
     moveBullet();
-      // collision_check(enemy, lazers);
+    collision_check();
   }, 10);
 //set lazer position and fire upwards
   function moveBullet() {
@@ -214,17 +214,26 @@ $(function(){
     });
   };
 
-  // function collision_check(enemy, lazers){
-  //   enemy.each(function() {
-  //     enemy_y_pos = enemy.offset().top - enemy.height();
-  //   });
-  //   lazers.each(function(){
-  //     lazers_y_pos = lazers.offset().top;
-  //   });
-  //   if (lazers_y_pos = enemy_y_pos){
-  //     lazers.remove();
-  //   }
-  // }
+  function collision_check(){
+    $(".enemy").each(function() {
+      enemy_top = $(this).offset().top;
+      enemy_bottom = $(this).offset().top + $(this).height();
+      enemy_left = $(this).offset().left;
+      enemy_right = $(this).offset().left + $(this).width();
+      enemy = $(this);
+      $(".lazers").each(function(){
+        lazers_top = $(this).offset().top;
+        lazers_bottom = $(this).offset().top + $(this).height();
+        lazers_left = $(this).offset().left;
+        lazers_right = $(this).offset().left + $(this).width();
+
+        if (lazers_top <= enemy_bottom && lazers_left <= enemy_right && lazers_right >= enemy_left){
+          $(this).remove();
+          enemy.remove();
+        }
+      });
+    });
+  }
 
   loop();
 
