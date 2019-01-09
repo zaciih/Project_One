@@ -45,3 +45,10 @@ h2 {
   content:url("../images/lazer.png");
   transform: rotate(-90deg);
 }
+
+.enemy {
+  position: absolute;
+  width: auto;
+  height: auto;
+  content:url("../images/Enemy.png");
+}
