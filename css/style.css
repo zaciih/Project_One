@@ -8,25 +8,40 @@ h1 {
 }
 
 #background {
-  width: inherit;
-  height: inherit;
-  background-image: url("../images/space.jpg");
-  background-position: 0px 0px;
-  background-repeat: repeat-y;
   animation: animatedBackground 15s linear infinite;
+  background-image: url("../images/space.jpg");
+  background-position: 0 0;
+  background-repeat: repeat-y;
+  height: inherit;
+  width: inherit;
 }
 
 .game_container {
   position: relative;
   height: 600px;
   width: 600px;
-  background-color: gainsboro;
+  /* background-color: gainsboro; */
   margin: auto;
 }
 
 #rocket {
-  /* transform: scale(0.5); */
   position: absolute;
   height: 50px;
   content:url("../images/rocket.png");
+}
+
+h2 {
+  position: absolute;
+  font-size: 20px;
+  font-family: sans-serif;
+  color: white;
+  margin: 20px;
+}
+
+.lazers {
+  position: absolute;
+  width: auto;
+  height: auto;
+  content:url("../images/lazer.png");
+  transform: rotate(-90deg);
 }

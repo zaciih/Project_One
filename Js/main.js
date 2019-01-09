@@ -22,24 +22,42 @@ $(function(){
 //down arrow
   var down = false;
 
+//reference the lazers
+  var lazers = $(".lazers");
+//lazer position
+  var lazer_posx = rocket_posx;
+  var lazer_posy = rocket_posy;
+//shoot
+  var shoot = false;
+//bullet count
+  var bullet_count = 100;
+  var ammo = $("#ammo");
 
 //arrow key pressed
   $(document).keydown(function(e) {
     switch(e.which) {
         case 37: // left
+        case 65: // left
           left = true;
         break;
 
         case 38: // up
+        case 87: // up
           up = true;
         break;
 
         case 39: // right
+        case 68: // right
           right = true;
         break;
 
         case 40: // down
+        case 83: // down
           down = true;
+        break;
+
+        case 32: //spacebar
+          shoot = true;
         break;
 
         default: return; // exit this handler for other keys
@@ -50,19 +68,27 @@ $(function(){
   $(document).keyup(function(e) {
     switch(e.which) {
         case 37: // left
+        case 65: // left
           left = false;
         break;
 
         case 38: // up
+        case 87: // up
           up = false;
         break;
 
         case 39: // right
+        case 68: // right
           right = false;
         break;
 
         case 40: // down
+        case 83: // down
           down = false;
+        break;
+
+        case 32: //spacebar
+          shoot = false;
         break;
 
         default: return; // exit this handler for other keys
@@ -70,6 +96,10 @@ $(function(){
     e.preventDefault(); // prevent the default action (scroll / move caret)
   });
 
+  var shoot_interval;
+  var bullet_interval;
+  var ammo_interval;
+  var deplete_interval;
   var interval;
 //function to call every frame (60fps)
   interval = setInterval(function(){
@@ -103,18 +133,62 @@ $(function(){
         rocket_posy -=1;
       }
     }
-    //if rocket hits bottom wall stop, else move down
-      if (rocket_bottom <= container_bottom){
-        if (down == true){
-          rocket_posy +=1.5;
-        }
+  //if rocket hits bottom wall stop, else move down
+    if (rocket_bottom <= container_bottom){
+      if (down == true){
+        rocket_posy +=1.5;
       }
+    }
   }, 10);
 
 
-
-
-
-
+//function to shoot every frame
+  shoot_interval = setInterval(function(){
+  //spacebar to shoot
+    if (shoot == true && bullet_count > 0){
+      fireBullet();
+    }
+    ammo.html(bullet_count + "%");
+  }, 100);
+//function to deplete energy
+  deplete_interval = setInterval(function(){
+    if (shoot == true && bullet_count > 0){
+      bullet_count --;
+    }
+  }, 40);
+//function to refresh bullets every 2 seconds
+  ammo_interval = setInterval(function(){
+    if (bullet_count < 100 && shoot == false){
+      bullet_count++;
+    }
+  }, 100);
+//function to move bullets every frame
+  bullet_interval = setInterval(function(){
+    moveBullet();
+  }, 10);
+//set lazer position and fire upwards
+  function moveBullet() {
+    $(".lazers").each(function(){
+      y_pos = $(this).offset().top - 91;
+      if (y_pos <= 0) {
+        $(this).remove();
+      } else {
+        $(this).css({'top': y_pos + "px"})
+      }
+    })
+  };
+  function fireBullet() {
+    container.prepend("<div class='lazers'></div>");
+  //reference the lazers
+    var lazers = $(".lazers");
+  //lazer position
+    var lazer_posx = rocket_posx + 3.75;
+    var lazer_posy = rocket_posy;
+  //lazer movement
+    lazers.first().css({
+      'left': lazer_posx + "px",
+      'top': lazer_posy + "px"
+    });
+  };
 
 })
