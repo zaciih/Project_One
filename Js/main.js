@@ -11,6 +11,7 @@ $(function(){
   var container_bottom = container_top + container.height();
   var spawn_width = container.width() - 60;
   var spawn_height = 0;
+  var spawn_rate = 10000;
 
 //reference the rocket
   var rocket = $("#rocket");
@@ -62,7 +63,6 @@ $(function(){
 
         case 32: //spacebar
           shoot = true;
-          spawn_enemy();
         break;
 
         default: return; // exit this handler for other keys
@@ -197,6 +197,8 @@ $(function(){
     });
   };
 
+  loop();
+
   function spawn_enemy(){
     container.prepend("<div class='enemy'></div>");
     var enemy = $(".enemy");
@@ -206,7 +208,14 @@ $(function(){
       'left': enemy_posx + "px",
       'top': enemy_posy + "px"
     });
-    console.log(enemy_posx);
+  };
+//random loop to spawn enemy
+  function loop(){
+    var random = Math.round(Math.random()* spawn_rate);
+    setTimeout(function(){
+      spawn_enemy();
+      loop();
+    }, random);
   };
   function move_enemy() {
     $(".enemy").each(function(){
