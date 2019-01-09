@@ -15,36 +15,32 @@ $(function(){
   var spawn_width = container.width() - 60;
   var spawn_height = 0;
   var spawn_rate = 10000;
+
   var level = $("#level");
   var level_up = 1;
   var earth = $("#earth");
   var earth_hp = 100;
-
   earth.html("Earth HP: " + earth_hp + "%");
   level.html("Level: " + level_up);
 
-//reference the rocket
+  var score = $("#score");
+  var score_up = 0;
+  score.html("Score: " + score_up);
+
   var rocket = $("#rocket");
-//rocket position
   var rocket_posx = container.width()/2 - rocket.width()/2;
   var rocket_posy = container.height()-100 - rocket.height()/2;
-//left arrow
+
   var left = false;
-//right arrow
   var right = false;
-//up arrow
   var up = false;
-//down arrow
   var down = false;
 
-//reference the lazers
   var lazers = $(".lazers");
-//lazer position
   var lazer_posx = rocket_posx;
   var lazer_posy = rocket_posy;
-//shoot
+
   var shoot = false;
-//bullet count
   var bullet_count = 100;
   var ammo = $("#ammo");
 
@@ -184,7 +180,7 @@ $(function(){
       bullet_count++;
     }
   }, 100);
-  
+
 //function to move bullets every frame
   bullet_interval = setInterval(function(){
     moveBullet();
@@ -232,6 +228,8 @@ $(function(){
         if (lazers_top <= enemy_bottom && lazers_left <= enemy_right && lazers_right >= enemy_left){
           $(this).remove();
           enemy.remove();
+          score_up += 10;
+          score.html("Score: " + score_up);
         }
       });
     });
