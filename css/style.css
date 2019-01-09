@@ -17,10 +17,10 @@ h1 {
 }
 
 .game_container {
+  display: flex;
   position: relative;
   height: 600px;
   width: 600px;
-  /* background-color: gainsboro; */
   margin: auto;
 }
 
@@ -30,10 +30,19 @@ h1 {
   content:url("../images/rocket.png");
 }
 
-.info_container {
-  position: absolute;
+.header {
   display: flex;
+  position: absolute;
   justify-content: space-between;
+  margin: auto;
+}
+
+.footer {
+  display: flex;
+  align-self: flex-end;
+  position: absolute;
+  justify-content: space-between;
+  margin: auto;
 }
 
 #ammo {

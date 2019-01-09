@@ -184,6 +184,7 @@ $(function(){
       bullet_count++;
     }
   }, 100);
+  
 //function to move bullets every frame
   bullet_interval = setInterval(function(){
     moveBullet();
@@ -214,6 +215,7 @@ $(function(){
     });
   };
 
+//checks collisions of every enemy and lazer
   function collision_check(){
     $(".enemy").each(function() {
       enemy_top = $(this).offset().top;
@@ -247,6 +249,14 @@ $(function(){
       'top': enemy_posy + "px"
     });
   };
+  spawn_interval = setInterval(function(){
+    if (spawn_rate > 500) {
+      spawn_rate = spawn_rate - 25;
+    } else {
+      clearInterval(level_interval);
+      clearInterval(spawn_interval);
+    }
+  }, 1000);
 
   function move_enemy() {
     $(".enemy").each(function(){
@@ -265,15 +275,6 @@ $(function(){
   enemy_interval = setInterval(function(){
     move_enemy();
   }, 10);
-
-  spawn_interval = setInterval(function(){
-    if (spawn_rate > 500) {
-      spawn_rate = spawn_rate - 25;
-    } else {
-      clearInterval(level_interval);
-      clearInterval(spawn_interval);
-    }
-  }, 1000);
 
   level_interval = setInterval(function(){
     level_up++;
