@@ -4,6 +4,9 @@ $(function(){
   var container = $("#game_area");
 //reference to enemies
   var enemy = $(".enemy");
+
+  var progRunning = true;
+
 //game_area collision
   var container_left = container.offset().left;
   var container_right = container_left + container.width();
@@ -69,6 +72,10 @@ $(function(){
           shoot = true;
         break;
 
+        case 13: //enter
+          progRunning = false;
+        break;
+
         default: return; // exit this handler for other keys
     }
     e.preventDefault(); // prevent the default action (scroll / move caret)
@@ -115,7 +122,6 @@ $(function(){
   var interval;
 //function to call every frame (60fps)
   interval = setInterval(function(){
-
   //rocket movement
     rocket.css({
       'left': rocket_posx + "px",
@@ -219,7 +225,7 @@ $(function(){
   function move_enemy() {
     $(".enemy").each(function(){
       y_pos = $(this).offset().top - 79;
-      if (y_pos >= 600) {
+      if (y_pos >= 560) {
         $(this).remove();
       } else {
         $(this).css({'top': y_pos + "px"})
