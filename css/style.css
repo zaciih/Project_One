@@ -1,6 +1,8 @@
 h1 {
   display: flex;
   justify-content: center;
+  font-family: monospace;
+  font-size: 32px;
 }
 
 @keyframes animatedBackground {
@@ -30,7 +32,7 @@ h1 {
   display: flex;
   align-self: center;
   font-size: 100px;
-  font-family: sans-serif;
+  font-family: monospace;
   color: yellow;
   margin-left: 100px;
 }
@@ -59,35 +61,35 @@ h1 {
 
 #ammo {
   font-size: 20px;
-  font-family: sans-serif;
+  font-family: monospace;
   color: white;
   margin-left: 20px;
 }
 
 #level {
   font-size: 20px;
-  font-family: sans-serif;
+  font-family: monospace;
   color: white;
   margin-left: 20px;
 }
 
 #earth {
   font-size: 20px;
-  font-family: sans-serif;
+  font-family: monospace;
   color: white;
   margin-left: 20px;
 }
 
 #score {
   font-size: 20px;
-  font-family: sans-serif;
+  font-family: monospace;
   color: white;
   margin-left: 20px;
 }
 
 #hp {
   font-size: 20px;
-  font-family: sans-serif;
+  font-family: monospace;
   color: white;
   margin-left: 20px;
 }

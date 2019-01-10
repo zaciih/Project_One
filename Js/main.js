@@ -373,6 +373,20 @@ game_loop();
         comet_left = $(this).offset().left;
         comet_right = $(this).offset().left + $(this).width();
         comet = $(this);
+        $("#rocket").each(function(){
+          rocket_left = rocket.offset().left
+          rocket_right = rocket_left + rocket.width();
+          rocket_top = rocket.offset().top;
+          rocket_bottom = rocket_top + rocket.height();
+        //rocket vs enemy collision
+          if (rocket_top <= comet_bottom && rocket_left <= comet_right && rocket_right >= comet_left && rocket_bottom >= comet_top){
+            if (comet_hits < 1){
+              comet_hits++;
+              hp_change--;
+              rocket_hp.html("HP: " + hp_change);
+              com_death_anim(comet);
+          }
+        }
         $(".lazers").each(function(){
           lazers_top = $(this).offset().top;
           lazers_bottom = $(this).offset().top + $(this).height();
@@ -389,7 +403,8 @@ game_loop();
           }
         });
       });
-    }
+    })
+  }
     function com_death_anim(comet){
       comet.css({
         content:'url(images/com_exp.gif)'
