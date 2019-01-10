@@ -56,9 +56,13 @@ function game_start(){
   var rocket = $("#rocket");
   var rocket_posx = container.width()/2 - rocket.width()/2;
   var rocket_posy = container.height()-100 - rocket.height()/2;
-  var rocket_hp = $("#hp");
-  var hp_change = rocket_hp.html();
-  rocket_hp.html("HP: " + hp_change);
+  // var rocket_hp = $("#hp");
+  var life1 = $(".hp1");
+  var life2 = $(".hp2");
+  var life3 = $(".hp3");
+  var lives = 3;
+
+  // var hp_change = rocket_hp.html(3);
   rocket.css({
     'left': rocket_posx + "px",
     'top': rocket_posy + "px"
@@ -174,11 +178,15 @@ console.log(progRunning);
   function game_loop(){
     if (progRunning == true){
       game_interval = setInterval(function(){
-        if (hp_change < 1){
+        if (lives < 1){
           screen_text.show();
           screen_text.css({
             fontSize: 75,
-            marginLeft: 75
+            marginLeft: 100
+          })
+          life1.hide();
+          ammo.css({
+            marginLeft: 260
           })
           start_btn.show();
           start_btn.html("RESTART");
@@ -392,8 +400,19 @@ console.log(progRunning);
         if (rocket_top <= enemy_bottom && rocket_left <= enemy_right && rocket_right >= enemy_left && rocket_bottom >= enemy_top){
           if (enemy_hits < 1){
             enemy_hits++;
-            hp_change--;
-            rocket_hp.html("HP: " + hp_change);
+            lives--;
+            if (lives == 2){
+              life3.hide();
+              ammo.css({
+                marginLeft: 220
+              })
+            }
+            if (lives == 1){
+              life2.hide();
+              ammo.css({
+                marginLeft: 240
+              })
+            }
             death_anim(enemy);
         }
       }
@@ -447,8 +466,19 @@ console.log(progRunning);
         if (rocket_top <= comet_bottom && rocket_left <= comet_right && rocket_right >= comet_left && rocket_bottom >= comet_top){
           if (comet_hits < 1){
             comet_hits++;
-            hp_change--;
-            rocket_hp.html("HP: " + hp_change);
+            lives--;
+            if (lives == 2){
+              life3.hide();
+              ammo.css({
+                marginLeft: 220
+              })
+            }
+            if (lives == 1){
+              life2.hide();
+              ammo.css({
+                marginLeft: 240
+              })
+            }
             com_death_anim(comet);
         }
       }
