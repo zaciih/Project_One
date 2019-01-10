@@ -82,18 +82,16 @@ $(function(){
         case 13: //enter
           if (progRunning == false){
             progRunning = true;
-            pause_interval = setInterval(function(){
-                rocket_collision_check();
-                moveBullet();
-                move_enemy();
-                move_comet();
-                lazer_collision_check();
-                com_collision_check();
-            }, 10);
+            game_loop();
           }else {
-            progRunning = false;
-            clearInterval(pause_interval);
             clearInterval(game_interval);
+            clearInterval(shoot_interval);
+            clearInterval(ammo_interval);
+            clearInterval(deplete_interval);
+            clearInterval(spawn_interval);
+            clearInterval(level_interval);
+            progRunning = false;
+
           }
         break;
 
@@ -139,17 +137,96 @@ $(function(){
   var spawn_interval;
   var level_interval;
   var game_interval;
-  var pause_interval;
 
+game_loop();
 //function to call every frame (60fps)
-  game_interval = setInterval(function(){
-    rocket_collision_check();
-    moveBullet();
-    move_enemy();
-    move_comet();
-    lazer_collision_check();
-    com_collision_check();
-  }, 10);
+  function game_loop(){
+    if (progRunning == true){
+      game_interval = setInterval(function(){
+        rocket_collision_check();
+        moveBullet();
+        move_enemy();
+        move_comet();
+        lazer_collision_check();
+        com_collision_check();
+      }, 10);
+      shoot_interval = setInterval(function(){
+        if (shoot == true && bullet_count > 0){
+          fireBullet();
+        }
+        ammo.html(bullet_count + "%");
+      }, 100);
+    //function to deplete energy
+      deplete_interval = setInterval(function(){
+        if (shoot == true && bullet_count > 0){
+          bullet_count --;
+        }
+      }, 40);
+    //function to refresh bullets every 2 seconds
+      ammo_interval = setInterval(function(){
+        if (bullet_count < 100 && shoot == false){
+          bullet_count++;
+        }
+      }, 100);
+      spawn_interval = setInterval(function(){
+        if (spawn_rate > 500) {
+          spawn_rate = spawn_rate - 25;
+        } else {
+          clearInterval(level_interval);
+          clearInterval(spawn_interval);
+        }
+      }, 1000);
+      level_interval = setInterval(function(){
+        level_up++;
+        level.html("Level: " + level_up);
+      }, 20000);
+      function spawn_enemy(){
+        container.prepend("<div class='enemy'></div>");
+        var enemy = $(".enemy");
+        var enemy_posx = Math.floor(Math.random()* spawn_width);
+        var enemy_posy = spawn_height;
+        enemy.first().css({
+          'left': enemy_posx + "px",
+          'top': enemy_posy + "px"
+        });
+      };
+      enemy_loop();
+    //random loop to spawn enemy
+      function enemy_loop(){
+        var random = Math.round(Math.random()* spawn_rate);
+        if (progRunning == true){
+          setTimeout(function(){
+            spawn_enemy();
+            enemy_loop();
+          }, random);
+        }
+      };
+      function spawn_comet(){
+        container.prepend("<div class='comet'></div>");
+        var comet = $(".comet");
+        var comet_posx = Math.floor(Math.random()* spawn_width);
+        var comet_posy = spawn_height;
+        function randomIntFromInterval(min,max) {
+          return Math.floor(Math.random()*(max-min+1)+min);
+        }
+        comet.first().css({
+          'left': comet_posx + "px",
+          'top': comet_posy + "px"
+        });
+      };
+      com_loop();
+    //random loop to spawn comet
+        function com_loop(){
+          var random = Math.round(Math.random()* com_spawn_rate);
+          if (progRunning == true){
+            setTimeout(function(){
+              spawn_comet();
+              com_loop();
+            }, random);
+          }
+        };
+    }
+  }
 
   function rocket_collision_check(){
     var rocket_left = rocket.offset().left
@@ -182,26 +259,7 @@ $(function(){
     });
   }
 
-//function to shoot every frame
-  shoot_interval = setInterval(function(){
-  //spacebar to shoot
-    if (shoot == true && bullet_count > 0){
-      fireBullet();
-    }
-    ammo.html(bullet_count + "%");
-  }, 100);
-//function to deplete energy
-  deplete_interval = setInterval(function(){
-    if (shoot == true && bullet_count > 0){
-      bullet_count --;
-    }
-  }, 40);
-//function to refresh bullets every 2 seconds
-  ammo_interval = setInterval(function(){
-    if (bullet_count < 100 && shoot == false){
-      bullet_count++;
-    }
-  }, 100);
+
 
 //set lazer position and fire upwards
   function moveBullet() {
@@ -304,24 +362,8 @@ $(function(){
       }, 150);
     }
 
-  function spawn_enemy(){
-    container.prepend("<div class='enemy'></div>");
-    var enemy = $(".enemy");
-    var enemy_posx = Math.floor(Math.random()* spawn_width);
-    var enemy_posy = spawn_height;
-    enemy.first().css({
-      'left': enemy_posx + "px",
-      'top': enemy_posy + "px"
-    });
-  };
-  spawn_interval = setInterval(function(){
-    if (spawn_rate > 500) {
-      spawn_rate = spawn_rate - 25;
-    } else {
-      clearInterval(level_interval);
-      clearInterval(spawn_interval);
-    }
-  }, 1000);
+
+
 
   function move_enemy() {
     $(".enemy").each(function(){
@@ -338,35 +380,11 @@ $(function(){
     })
   };
 
-  level_interval = setInterval(function(){
-    level_up++;
-    level.html("Level: " + level_up);
-  }, 20000);
 
-  enemy_loop();
-//random loop to spawn enemy
-  function enemy_loop(){
-    var random = Math.round(Math.random()* spawn_rate);
-    setTimeout(function(){
-      spawn_enemy();
-      // spawn_comet();
-      enemy_loop();
-    }, random);
-  };
 
-  function spawn_comet(){
-    container.prepend("<div class='comet'></div>");
-    var comet = $(".comet");
-    var comet_posx = Math.floor(Math.random()* spawn_width);
-    var comet_posy = spawn_height;
-    function randomIntFromInterval(min,max) {
-      return Math.floor(Math.random()*(max-min+1)+min);
-    }
-    comet.first().css({
-      'left': comet_posx + "px",
-      'top': comet_posy + "px"
-    });
-  };
+
+
+
   function move_comet() {
     $(".comet").each(function(){
       comet_speed =  Math.floor(Math.random()*(80-75+1)+75);
@@ -380,15 +398,7 @@ $(function(){
       }
     })
   };
-  com_loop();
-//random loop to spawn comet
-    function com_loop(){
-      var random = Math.round(Math.random()* com_spawn_rate);
-      setTimeout(function(){
-        spawn_comet();
-        com_loop();
-      }, random);
-    };
+
 
 
 
