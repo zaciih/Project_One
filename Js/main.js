@@ -74,7 +74,7 @@ function game_start(){
   var lazer_posy = rocket_posy;
 
   var shoot = false;
-  var bullet_count = 100;
+  var bullet_count = 40;
   var ammo = $("#ammo");
 
 //arrow key pressed
@@ -204,8 +204,8 @@ console.log(progRunning);
       shoot_interval = setInterval(function(){
         if (shoot == true && bullet_count > 0){
           fireBullet();
+          console.log(bullet_count);
         }
-        ammo.html(bullet_count + "%");
       }, 100);
     //function to deplete energy
       deplete_interval = setInterval(function(){
@@ -318,6 +318,52 @@ console.log(progRunning);
         $(this).css({'top': y_pos + "px"})
       }
     })
+  //check bullet_count for ammo_bar
+    if (bullet_count == 100){
+      ammo.css({
+        content:'url(images/ammo_100.png)'
+      })
+    }else if (bullet_count == 90){
+      ammo.css({
+        content:'url(images/ammo_90.png)'
+      })
+    }else if (bullet_count == 80){
+      ammo.css({
+        content:'url(images/ammo_80.png)'
+      })
+    }else if (bullet_count == 70){
+      ammo.css({
+        content:'url(images/ammo_70.png)'
+      })
+    }else if (bullet_count == 60){
+      ammo.css({
+        content:'url(images/ammo_60.png)'
+      })
+    }else if (bullet_count == 50){
+      ammo.css({
+        content:'url(images/ammo_50.png)'
+      })
+    }else if (bullet_count == 40){
+      ammo.css({
+        content:'url(images/ammo_40.png)'
+      })
+    }else if (bullet_count == 30){
+      ammo.css({
+        content:'url(images/ammo_30.png)'
+      })
+    }else if (bullet_count == 20){
+      ammo.css({
+        content:'url(images/ammo_20.png)'
+      })
+    }else if (bullet_count == 10){
+      ammo.css({
+        content:'url(images/ammo_10.png)'
+      })
+    }else if (bullet_count == 0){
+      ammo.css({
+        content:'url(images/ammo_0.png)'
+      })
+    }
   };
   function fireBullet() {
     container.prepend("<div class='lazers'></div>");
