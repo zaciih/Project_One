@@ -80,7 +80,21 @@ $(function(){
         break;
 
         case 13: //enter
-          progRunning = false;
+          if (progRunning == false){
+            progRunning = true;
+            pause_interval = setInterval(function(){
+                rocket_collision_check();
+                moveBullet();
+                move_enemy();
+                move_comet();
+                lazer_collision_check();
+                com_collision_check();
+            }, 10);
+          }else {
+            progRunning = false;
+            clearInterval(pause_interval);
+            clearInterval(game_interval);
+          }
         break;
 
         default: return; // exit this handler for other keys
@@ -120,22 +134,24 @@ $(function(){
   });
 
   var shoot_interval;
-  var bullet_interval;
   var ammo_interval;
   var deplete_interval;
-  var enemy_interval;
   var spawn_interval;
   var level_interval;
-  var interval;
-//function to call every frame (60fps)
-  interval = setInterval(function(){
-  //rocket movement
-    rocket.css({
-      'left': rocket_posx + "px",
-      'top': rocket_posy + "px"
-    });
+  var game_interval;
+  var pause_interval;
 
-  //rocket collision
+//function to call every frame (60fps)
+  game_interval = setInterval(function(){
+    rocket_collision_check();
+    moveBullet();
+    move_enemy();
+    move_comet();
+    lazer_collision_check();
+    com_collision_check();
+  }, 10);
+
+  function rocket_collision_check(){
     var rocket_left = rocket.offset().left
     var rocket_right = rocket_left + rocket.width();
     var rocket_top = rocket.offset().top;
@@ -160,7 +176,11 @@ $(function(){
         rocket_posy +=1.5;
       }
     }
-  }, 10);
+    rocket.css({
+      'left': rocket_posx + "px",
+      'top': rocket_posy + "px"
+    });
+  }
 
 //function to shoot every frame
   shoot_interval = setInterval(function(){
@@ -183,12 +203,6 @@ $(function(){
     }
   }, 100);
 
-//function to move bullets every frame
-  bullet_interval = setInterval(function(){
-    moveBullet();
-    lazer_collision_check();
-    com_collision_check();
-  }, 10);
 //set lazer position and fire upwards
   function moveBullet() {
     $(".lazers").each(function(){
@@ -323,10 +337,6 @@ $(function(){
       }
     })
   };
-  enemy_interval = setInterval(function(){
-    move_enemy();
-    move_comet();
-  }, 10);
 
   level_interval = setInterval(function(){
     level_up++;
