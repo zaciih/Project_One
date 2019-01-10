@@ -25,6 +25,17 @@ h1 {
   margin: auto;
 }
 
+#screen_text {
+  position: absolute;
+  display: flex;
+  align-self: center;
+  font-size: 100px;
+  font-family: sans-serif;
+  color: yellow;
+  margin-left: 100px;
+}
+
+
 #rocket {
   position: absolute;
   height: 50px;

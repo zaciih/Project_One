@@ -3,6 +3,9 @@ $(function(){
 //refernce game area
   var container = $("#game_area");
   var background = $("#background");
+  var screen_text = $("#screen_text");
+  screen_text.hide();
+  // var pause_text = screen_text.html();
 //reference to enemies
   var enemy = $(".enemy");
   var enemy_hits = 0;
@@ -85,15 +88,19 @@ $(function(){
 
         case 13: //enter
           if (progRunning == true){
+            screen_text.show();
             clearInterval(game_interval);
             clearInterval(shoot_interval);
             clearInterval(ammo_interval);
             clearInterval(deplete_interval);
             clearInterval(spawn_interval);
             clearInterval(level_interval);
+            clearTimeout(enemy_timeout);
+            clearTimeout(com_timeout);
             progRunning = false;
           }else {
             progRunning = true;
+            screen_text.hide();
             game_loop();
           }
         break;
@@ -133,13 +140,16 @@ $(function(){
     }
     e.preventDefault(); // prevent the default action (scroll / move caret)
   });
-
+//intervals
   var shoot_interval;
   var ammo_interval;
   var deplete_interval;
   var spawn_interval;
   var level_interval;
   var game_interval;
+//timeouts
+  var enemy_timeout;
+  var com_timeout;
 
 game_loop();
 //function to call every frame (60fps)
@@ -207,7 +217,7 @@ game_loop();
       function enemy_loop(){
         var random = Math.round(Math.random()* spawn_rate);
         if (progRunning == true){
-          setTimeout(function(){
+          enemy_timeout = setTimeout(function(){
             spawn_enemy();
             enemy_loop();
           }, random);
@@ -231,7 +241,7 @@ game_loop();
       function com_loop(){
         var random = Math.round(Math.random()* com_spawn_rate);
         if (progRunning == true){
-          setTimeout(function(){
+          com_timeout = setTimeout(function(){
             spawn_comet();
             com_loop();
           }, random);
