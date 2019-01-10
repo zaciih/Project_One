@@ -9,6 +9,7 @@ h1 {
 
 #background {
   animation: animatedBackground 15s linear infinite;
+  animation-play-state: running;
   background-image: url("../images/space.jpg");
   background-position: 0 0;
   background-repeat: repeat-y;
@@ -86,7 +87,6 @@ h1 {
   width: auto;
   height: auto;
   content:url("../images/Enemy_red.png");
-  /* content: attr("src", "../images/Enemy_red.png"); */
 }
 
 .comet {

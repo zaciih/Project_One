@@ -2,6 +2,7 @@ $(function(){
 
 //refernce game area
   var container = $("#game_area");
+  var background = $("#background");
 //reference to enemies
   var enemy = $(".enemy");
   var enemy_hits = 0;
@@ -216,15 +217,15 @@ game_loop();
       };
       com_loop();
     //random loop to spawn comet
-        function com_loop(){
-          var random = Math.round(Math.random()* com_spawn_rate);
-          if (progRunning == true){
-            setTimeout(function(){
-              spawn_comet();
-              com_loop();
-            }, random);
-          }
-        };
+      function com_loop(){
+        var random = Math.round(Math.random()* com_spawn_rate);
+        if (progRunning == true){
+          setTimeout(function(){
+            spawn_comet();
+            com_loop();
+          }, random);
+        }
+      };
     }
   }
 
