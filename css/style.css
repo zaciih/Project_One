@@ -86,6 +86,7 @@ h1 {
   width: auto;
   height: auto;
   content:url("../images/Enemy_red.png");
+  /* content: attr("src", "../images/Enemy_red.png"); */
 }
 
 .comet {
