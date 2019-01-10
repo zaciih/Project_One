@@ -1,4 +1,18 @@
 $(function(){
+  game_start();
+function game_start(){
+
+  var start_btn = $("#start_btn");
+  $("#start_btn").click(function(){
+    if (game_over == true){
+      document.location.reload();
+    }
+    if (progRunning == false){
+      progRunning = true;
+      game_loop();
+      start_btn.hide();
+    }
+  });
 
 //refernce game area
   var container = $("#game_area");
@@ -13,10 +27,10 @@ $(function(){
 //refernce to comets
   var comet = $(".comet");
   var com_spawn_rate = 2000;
-  var comet_speed = Math.floor(Math.random()*(79-73+1)+73);
   var comet_hits = 0;
 
-  var progRunning = true;
+  var progRunning = false;
+  var game_over = false;
 
 //game_area collision
   var container_left = container.offset().left;
@@ -45,6 +59,10 @@ $(function(){
   var rocket_hp = $("#hp");
   var hp_change = rocket_hp.html();
   rocket_hp.html("HP: " + hp_change);
+  rocket.css({
+    'left': rocket_posx + "px",
+    'top': rocket_posy + "px"
+  });
 
   var left = false;
   var right = false;
@@ -151,7 +169,7 @@ $(function(){
   var enemy_timeout;
   var com_timeout;
 
-game_loop();
+console.log(progRunning);
 //function to call every frame (60fps)
   function game_loop(){
     if (progRunning == true){
@@ -162,6 +180,8 @@ game_loop();
             fontSize: 75,
             marginLeft: 75
           })
+          start_btn.show();
+          start_btn.html("RESTART");
           screen_text.html("GAME OVER");
           clearInterval(game_interval);
           clearInterval(shoot_interval);
@@ -172,6 +192,7 @@ game_loop();
           clearTimeout(enemy_timeout);
           clearTimeout(com_timeout);
           progRunning = false;
+          game_over = true;
         }
         rocket_collision_check();
         moveBullet();
@@ -236,9 +257,7 @@ game_loop();
         var comet = $(".comet");
         var comet_posx = Math.floor(Math.random()* spawn_width);
         var comet_posy = spawn_height;
-        function randomIntFromInterval(min,max) {
-          return Math.floor(Math.random()*(max-min+1)+min);
-        }
+
         comet.first().css({
           'left': comet_posx + "px",
           'top': comet_posy + "px"
@@ -366,57 +385,57 @@ game_loop();
     }
   }
   //checks collisions of every comet and lazer
-    function com_collision_check(){
-      $(".comet").each(function() {
-        comet_top = $(this).offset().top;
-        comet_bottom = $(this).offset().top + $(this).height();
-        comet_left = $(this).offset().left;
-        comet_right = $(this).offset().left + $(this).width();
-        comet = $(this);
-        $("#rocket").each(function(){
-          rocket_left = rocket.offset().left
-          rocket_right = rocket_left + rocket.width();
-          rocket_top = rocket.offset().top;
-          rocket_bottom = rocket_top + rocket.height();
-        //rocket vs enemy collision
-          if (rocket_top <= comet_bottom && rocket_left <= comet_right && rocket_right >= comet_left && rocket_bottom >= comet_top){
-            if (comet_hits < 1){
-              comet_hits++;
-              hp_change--;
-              rocket_hp.html("HP: " + hp_change);
-              com_death_anim(comet);
+  function com_collision_check(){
+    $(".comet").each(function() {
+      comet_top = $(this).offset().top;
+      comet_bottom = $(this).offset().top + $(this).height();
+      comet_left = $(this).offset().left;
+      comet_right = $(this).offset().left + $(this).width();
+      comet = $(this);
+      $("#rocket").each(function(){
+        rocket_left = rocket.offset().left
+        rocket_right = rocket_left + rocket.width();
+        rocket_top = rocket.offset().top;
+        rocket_bottom = rocket_top + rocket.height();
+      //rocket vs enemy collision
+        if (rocket_top <= comet_bottom && rocket_left <= comet_right && rocket_right >= comet_left && rocket_bottom >= comet_top){
+          if (comet_hits < 1){
+            comet_hits++;
+            hp_change--;
+            rocket_hp.html("HP: " + hp_change);
+            com_death_anim(comet);
+        }
+      }
+      $(".lazers").each(function(){
+        lazers_top = $(this).offset().top;
+        lazers_bottom = $(this).offset().top + $(this).height();
+        lazers_left = $(this).offset().left;
+        lazers_right = $(this).offset().left + $(this).width();
+      //lazer vs enemy collision
+        if (lazers_top <= comet_bottom && lazers_left <= comet_right && lazers_right >= comet_left && lazers_bottom >= comet_top){
+          if (comet_hits < 1){
+            $(this).remove();
+            comet_hits++;
+            console.log(comet_hits);
+            com_death_anim(comet);
           }
         }
-        $(".lazers").each(function(){
-          lazers_top = $(this).offset().top;
-          lazers_bottom = $(this).offset().top + $(this).height();
-          lazers_left = $(this).offset().left;
-          lazers_right = $(this).offset().left + $(this).width();
-        //lazer vs enemy collision
-          if (lazers_top <= comet_bottom && lazers_left <= comet_right && lazers_right >= comet_left && lazers_bottom >= comet_top){
-            if (comet_hits < 1){
-              $(this).remove();
-              comet_hits++;
-              console.log(comet_hits);
-              com_death_anim(comet);
-            }
-          }
-        });
       });
-    })
-  }
-    function com_death_anim(comet){
+    });
+  })
+}
+  function com_death_anim(comet){
+    comet.css({
+      content:'url(images/com_exp.gif)'
+    });
+    setTimeout(function(){
       comet.css({
-        content:'url(images/com_exp.gif)'
+        content:''
       });
-      setTimeout(function(){
-        comet.css({
-          content:''
-        });
-        comet.remove();
-        comet_hits = 0;
-      }, 150);
-    }
+      comet.remove();
+      comet_hits = 0;
+    }, 150);
+  }
   function move_enemy() {
     $(".enemy").each(function(){
       y_pos = $(this).offset().top - 79;
@@ -431,9 +450,12 @@ game_loop();
       }
     })
   };
+  function randomIntFromInterval(min,max) {
+    return Math.floor(Math.random()*(max-min+1)+min);
+  }
   function move_comet() {
     $(".comet").each(function(){
-      comet_speed =  Math.floor(Math.random()*(80-75+1)+75);
+      comet_speed = randomIntFromInterval(73,79);
       y_pos = $(this).offset().top - comet_speed;
       if (y_pos >= 560) {
         $(this).remove();
@@ -444,4 +466,5 @@ game_loop();
       }
     })
   };
+}
 });

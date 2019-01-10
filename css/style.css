@@ -27,6 +27,20 @@ h1 {
   margin: auto;
 }
 
+#start_btn {
+  position: absolute;
+  height: 50px;
+  width: 200px;
+  display: flex;
+  align-self: center;
+  font-size: 32px;
+  justify-content: center;
+  margin-left: 200px;
+  margin-top: 200px;
+  font-family: monospace;
+  background-color: blue;
+}
+
 #screen_text {
   position: absolute;
   display: flex;
