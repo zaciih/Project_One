@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/style.css">
     <script
-    src="http://code.jquery.com/jquery-3.3.1.min.js"
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
     <script src="js/main.js" charset="utf-8"></script>
@@ -15,9 +15,15 @@
 
     <div class="game_container" id="game_area">
       <div class="rocket" id="rocket"></div>
-      <div class="info_container">
+      <div id="screen_text">PAUSED</div>
+      <div class="header">
         <h2 id="ammo">0</h2>
         <h2 id="level"></h2>
+        <h2 id="hp">3</h2>
+      </div>
+      <div class="footer">
+        <h2 id="score"></h2>
+        <h2 id="earth"></h2>
       </div>
       <div class="background" id="background"></div>
     </div>

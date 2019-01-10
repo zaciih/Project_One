@@ -1,6 +1,8 @@
 h1 {
   display: flex;
   justify-content: center;
+  font-family: monospace;
+  font-size: 32px;
 }
 
 @keyframes animatedBackground {
@@ -9,6 +11,7 @@ h1 {
 
 #background {
   animation: animatedBackground 15s linear infinite;
+  animation-play-state: running;
   background-image: url("../images/space.jpg");
   background-position: 0 0;
   background-repeat: repeat-y;
@@ -17,12 +20,23 @@ h1 {
 }
 
 .game_container {
+  display: flex;
   position: relative;
   height: 600px;
   width: 600px;
-  /* background-color: gainsboro; */
   margin: auto;
 }
+
+#screen_text {
+  position: absolute;
+  display: flex;
+  align-self: center;
+  font-size: 100px;
+  font-family: monospace;
+  color: yellow;
+  margin-left: 100px;
+}
+
 
 #rocket {
   position: absolute;
@@ -30,22 +44,52 @@ h1 {
   content:url("../images/rocket.png");
 }
 
-.info_container {
-  position: absolute;
+.header {
   display: flex;
+  position: absolute;
   justify-content: space-between;
+  margin: auto;
+}
+
+.footer {
+  display: flex;
+  align-self: flex-end;
+  position: absolute;
+  justify-content: space-between;
+  margin: auto;
 }
 
 #ammo {
   font-size: 20px;
-  font-family: sans-serif;
+  font-family: monospace;
   color: white;
   margin-left: 20px;
 }
 
 #level {
   font-size: 20px;
-  font-family: sans-serif;
+  font-family: monospace;
+  color: white;
+  margin-left: 20px;
+}
+
+#earth {
+  font-size: 20px;
+  font-family: monospace;
+  color: white;
+  margin-left: 20px;
+}
+
+#score {
+  font-size: 20px;
+  font-family: monospace;
+  color: white;
+  margin-left: 20px;
+}
+
+#hp {
+  font-size: 20px;
+  font-family: monospace;
   color: white;
   margin-left: 20px;
 }
@@ -62,5 +106,12 @@ h1 {
   position: absolute;
   width: auto;
   height: auto;
-  content:url("../images/Enemy.png");
+  content:url("../images/Enemy_red.png");
+}
+
+.comet {
+  position: absolute;
+  width: auto;
+  height: auto;
+  content:url("../images/asteroid.png");
 }
