@@ -157,12 +157,20 @@ game_loop();
     if (progRunning == true){
       game_interval = setInterval(function(){
         if (hp_change < 1){
+          screen_text.show();
+          screen_text.css({
+            fontSize: 75,
+            marginLeft: 75
+          })
+          screen_text.html("GAME OVER");
           clearInterval(game_interval);
           clearInterval(shoot_interval);
           clearInterval(ammo_interval);
           clearInterval(deplete_interval);
           clearInterval(spawn_interval);
           clearInterval(level_interval);
+          clearTimeout(enemy_timeout);
+          clearTimeout(com_timeout);
           progRunning = false;
         }
         rocket_collision_check();
