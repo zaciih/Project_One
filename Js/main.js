@@ -16,6 +16,8 @@ $(function(){
   var spawn_width = container.width() - 60;
   var spawn_height = 0;
   var spawn_rate = 10000;
+  var com_spawn_rate = 2000;
+  var comet_speed = Math.floor(Math.random()*(79-73+1)+73);
 
   var level = $("#level");
   var level_up = 1;
@@ -289,6 +291,7 @@ $(function(){
   };
   enemy_interval = setInterval(function(){
     move_enemy();
+    move_comet();
   }, 10);
 
   level_interval = setInterval(function(){
@@ -296,17 +299,53 @@ $(function(){
     level.html("Level: " + level_up);
   }, 20000);
 
-  loop();
+  enemy_loop();
 //random loop to spawn enemy
-  function loop(){
+  function enemy_loop(){
     var random = Math.round(Math.random()* spawn_rate);
     setTimeout(function(){
       spawn_enemy();
-      loop();
+      // spawn_comet();
+      enemy_loop();
     }, random);
   };
 
+  function spawn_comet(){
+    container.prepend("<div class='comet'></div>");
+    var comet = $(".comet");
+    var comet_posx = Math.floor(Math.random()* spawn_width);
+    var comet_posy = spawn_height;
+    function randomIntFromInterval(min,max) {
+      return Math.floor(Math.random()*(max-min+1)+min);
+    }
 
+    comet.first().css({
+      'left': comet_posx + "px",
+      'top': comet_posy + "px"
+    });
+  };
+  function move_comet() {
+    $(".comet").each(function(){
+      comet_speed =  Math.floor(Math.random()*(80-75+1)+75);
+      y_pos = $(this).offset().top - comet_speed;
+      if (y_pos >= 560) {
+        $(this).remove();
+      } else {
+        $(this).css({
+          'top': y_pos + "px"
+        })
+      }
+    })
+  };
+  com_loop();
+//random loop to spawn comet
+    function com_loop(){
+      var random = Math.round(Math.random()* com_spawn_rate);
+      setTimeout(function(){
+        spawn_comet();
+        com_loop();
+      }, random);
+    };
 
 
 
