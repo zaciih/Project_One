@@ -1,8 +1,13 @@
+body {
+  background-image: url("../images/8320.jpg");
+}
+
 h1 {
   display: flex;
   justify-content: center;
   font-family: monospace;
   font-size: 32px;
+  color: #01FEFE;
 }
 
 @keyframes animatedBackground {
@@ -38,7 +43,7 @@ h1 {
   margin-left: 200px;
   margin-top: 200px;
   font-family: monospace;
-  background-color: blue;
+  background-color: #01FEFE
 }
 
 #screen_text {
@@ -100,11 +105,16 @@ h1 {
   margin-left: 20px;
 }
 
-#hp {
-  font-size: 20px;
-  font-family: monospace;
-  color: white;
+.life_container {
+  display: flex;
   margin-left: 20px;
+}
+
+#hp {
+  height: 20px;
+  width: 20px;
+  margin-top: 17px;
+  content: url("../images/life.png");
 }
 
 .lazers {
