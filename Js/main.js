@@ -72,13 +72,13 @@ function game_start(){
   var rocket = $("#rocket");
   var rocket_posx = container.width()/2 - rocket.width()/2;
   var rocket_posy = container.height()-100 - rocket.height()/2;
-  // var rocket_hp = $("#hp");
+
   var life1 = $(".hp1");
   var life2 = $(".hp2");
   var life3 = $(".hp3");
   var lives = 3;
 
-  // var hp_change = rocket_hp.html(3);
+
   rocket.css({
     'left': rocket_posx + "px",
     'top': rocket_posy + "px"
@@ -549,8 +549,6 @@ function game_start(){
       comet_hits = 0;
     }, 150);
   }
-
-
 
   function move_enemy() {
     $(".enemy").each(function(){
