@@ -110,8 +110,11 @@ function game_start(){
         break;
 
         case 13: //enter
-          if (progRunning == true){
+          if (game_over == true){
+
+          }else if (progRunning == true){
             screen_text.show();
+            progRunning = false;
             clearInterval(game_interval);
             clearInterval(shoot_interval);
             clearInterval(ammo_interval);
@@ -120,7 +123,6 @@ function game_start(){
             clearInterval(level_interval);
             clearTimeout(enemy_timeout);
             clearTimeout(com_timeout);
-            progRunning = false;
           }else {
             progRunning = true;
             screen_text.hide();
