@@ -11,6 +11,7 @@ function game_start(){
       progRunning = true;
       game_loop();
       start_btn.hide();
+      $("#music").get(0).play();
     }
   });
 
@@ -173,7 +174,6 @@ function game_start(){
   var enemy_timeout;
   var com_timeout;
 
-console.log(progRunning);
 //function to call every frame (60fps)
   function game_loop(){
     if (progRunning == true){
@@ -212,7 +212,6 @@ console.log(progRunning);
       shoot_interval = setInterval(function(){
         if (shoot == true && bullet_count > 0){
           fireBullet();
-          console.log(bullet_count);
         }
       }, 100);
     //function to deplete energy
@@ -265,6 +264,7 @@ console.log(progRunning);
         var comet = $(".comet");
         var comet_posx = Math.floor(Math.random()* spawn_width);
         var comet_posy = spawn_height;
+        container.append("<audio id='explode' src='Audio/rumble.flac'></audio>")
 
         comet.first().css({
           'left': comet_posx + "px",
@@ -452,11 +452,11 @@ console.log(progRunning);
   //checks collisions of every comet and lazer
   function com_collision_check(){
     $(".comet").each(function() {
+      comet = $(this);
       comet_top = $(this).offset().top;
       comet_bottom = $(this).offset().top + $(this).height();
       comet_left = $(this).offset().left;
       comet_right = $(this).offset().left + $(this).width();
-      comet = $(this);
       $("#rocket").each(function(){
         rocket_left = rocket.offset().left
         rocket_right = rocket_left + rocket.width();
@@ -492,7 +492,6 @@ console.log(progRunning);
           if (comet_hits < 1){
             $(this).remove();
             comet_hits++;
-            console.log(comet_hits);
             com_death_anim(comet);
           }
         }
@@ -501,6 +500,7 @@ console.log(progRunning);
   })
 }
   function com_death_anim(comet){
+    $("#explode").get(0).play();
     comet.css({
       content:'url(images/com_exp.gif)'
     });
@@ -509,6 +509,7 @@ console.log(progRunning);
         content:''
       });
       comet.remove();
+      $("#explode").remove();
       comet_hits = 0;
     }, 150);
   }
