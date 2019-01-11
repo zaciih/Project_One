@@ -178,7 +178,7 @@ function game_start(){
   function game_loop(){
     if (progRunning == true){
       game_interval = setInterval(function(){
-        if (lives < 1){
+        if (lives < 1 || earth_hp < 1){
           screen_text.show();
           screen_text.css({
             fontSize: 75,
@@ -505,14 +505,19 @@ function game_start(){
       content:'url(images/com_exp.gif)'
     });
     setTimeout(function(){
+      $("#explode").remove();
+    }, 250);
+    setTimeout(function(){
       comet.css({
         content:''
       });
       comet.remove();
-      $("#explode").remove();
       comet_hits = 0;
     }, 150);
   }
+
+
+
   function move_enemy() {
     $(".enemy").each(function(){
       y_pos = $(this).offset().top - 79;
