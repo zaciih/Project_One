@@ -138,6 +138,7 @@ function game_start(){
         case 37: // left
         case 65: // left
           left = false;
+          $("#move").get(0).pause();
         break;
 
         case 38: // up
@@ -204,6 +205,7 @@ function game_start(){
           $("#music").remove();
           container.append("<audio id='music' src='Audio/Funeral_March.wav'></audio>");
           $("#music").get(0).play();
+          $("#music").prop("volume", 0.25);
         }
         rocket_collision_check();
         moveBullet();
@@ -270,7 +272,7 @@ function game_start(){
         var comet_posx = Math.floor(Math.random()* spawn_width);
         var comet_posy = spawn_height;
         container.append("<audio id='explode' src='Audio/rumble.flac'></audio>")
-
+        $("#explode").prop("volume", 0.5);
         comet.first().css({
           'left': comet_posx + "px",
           'top': comet_posy + "px"
@@ -384,6 +386,7 @@ function game_start(){
     var lazer_posx = rocket_posx + 3.75;
     var lazer_posy = rocket_posy;
     container.append("<audio id='shot' src='Audio/laser1.wav'></audio>")
+    $("#shot").prop("volume", 0.1);
     lazers.first().css({
       'left': lazer_posx + "px",
       'top': lazer_posy + "px"
