@@ -11,9 +11,24 @@ function game_start(){
       progRunning = true;
       game_loop();
       start_btn.hide();
+      instructions_btn.hide();
+      $("#instructions").hide();
       $("#music").get(0).play();
     }
   });
+  var inst = false;
+  $("#instructions").hide();
+  var instructions_btn = $("#instructions_btn");
+  instructions_btn.click(function(){
+    if (inst == false){
+      inst = true;
+      $("#instructions").show();
+    }else {
+      $("#instructions").hide();
+      inst = false;
+    }
+  })
+
 
 //refernce game area
   var container = $("#game_area");
