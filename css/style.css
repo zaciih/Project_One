@@ -73,8 +73,6 @@ h1 {
   display: flex;
   align-self: flex-end;
   position: absolute;
-  justify-content: space-between;
-  margin: auto;
 }
 
 #ammo {
@@ -95,7 +93,7 @@ h1 {
   font-size: 20px;
   font-family: monospace;
   color: white;
-  margin-left: 20px;
+  margin-left: 290px;
 }
 
 #score {
