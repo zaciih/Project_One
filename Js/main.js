@@ -201,6 +201,9 @@ function game_start(){
           clearTimeout(com_timeout);
           progRunning = false;
           game_over = true;
+          $("#music").remove();
+          container.append("<audio id='music' src='Audio/Funeral_March.wav'></audio>");
+          $("#music").get(0).play();
         }
         rocket_collision_check();
         moveBullet();
@@ -243,6 +246,8 @@ function game_start(){
         var enemy = $(".enemy");
         var enemy_posx = Math.floor(Math.random()* spawn_width);
         var enemy_posy = spawn_height;
+        container.append("<audio id='death' src='Audio/mutantdie.wav'></audio>")
+        container.append("<audio id='earth_hurt' src='Audio/earth_hurt.wav'></audio>")
         enemy.first().css({
           'left': enemy_posx + "px",
           'top': enemy_posy + "px"
@@ -378,10 +383,15 @@ function game_start(){
     var lazers = $(".lazers");
     var lazer_posx = rocket_posx + 3.75;
     var lazer_posy = rocket_posy;
+    container.append("<audio id='shot' src='Audio/laser1.wav'></audio>")
     lazers.first().css({
       'left': lazer_posx + "px",
       'top': lazer_posy + "px"
     });
+    $("#shot").get(0).play();
+    setTimeout(function(){
+      $("#shot").remove();
+    }, 50);
   };
 //checks collisions of every enemy and lazer
   function lazer_collision_check(){
@@ -434,6 +444,7 @@ function game_start(){
   })
   }
   function death_anim(enemy){
+    $("#death").get(0).play();
     enemy.css({
       content:'url(images/imp_death_blue.gif)'
     });
@@ -445,6 +456,9 @@ function game_start(){
       enemy_hits = 0;
       score.html("Score: " + score_up)
     }, 150);
+    setTimeout(function(){
+      $("#death").remove();
+    }, 250);
     if (enemy_hits <= 1){
       score_up += 10;
     }
@@ -526,6 +540,10 @@ function game_start(){
         if (earth_hp > 0){
           earth_hp -= 5;
           earth.html("Earth HP: " + earth_hp + "%");
+          $("#earth_hurt").get(0).play();
+          setTimeout(function(){
+            $("#earth_hurt").remove();
+          }, 125);
         }
       } else {
         $(this).css({'top': y_pos + "px"})
