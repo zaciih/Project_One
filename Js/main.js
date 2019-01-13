@@ -1,13 +1,14 @@
 $(function(){
   game_start();
 function game_start(){
-
+  var start_clicked = false;
   var start_btn = $("#start_btn");
   $("#start_btn").click(function(){
     if (game_over == true){
       document.location.reload();
     }
     if (progRunning == false){
+      start_clicked = true;
       progRunning = true;
       game_loop();
       start_btn.hide();
@@ -28,7 +29,6 @@ function game_start(){
       inst = false;
     }
   })
-
 
 //refernce game area
   var container = $("#game_area");
@@ -57,7 +57,6 @@ function game_start(){
   var spawn_height = 0;
   var spawn_rate = 10000;
 
-
   var level = $("#level");
   var level_up = 1;
   var earth = $("#earth");
@@ -77,7 +76,6 @@ function game_start(){
   var life2 = $(".hp2");
   var life3 = $(".hp3");
   var lives = 3;
-
 
   rocket.css({
     'left': rocket_posx + "px",
@@ -138,7 +136,7 @@ function game_start(){
             clearInterval(level_interval);
             clearTimeout(enemy_timeout);
             clearTimeout(com_timeout);
-          }else {
+          }else if (start_clicked == true) {
             progRunning = true;
             screen_text.hide();
             game_loop();
