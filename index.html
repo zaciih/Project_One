@@ -12,36 +12,37 @@
   </head>
   <body>
     <h1>Rocket Game</h1>
-
-    <div class="game_container" id="game_area">
-      <div class="inst_container" id="instructions">
-        <div>W-Up</div>
-        <div>A-Left</div>
-        <div>S-Down</div>
-        <div>D-Right</div>
-        <div>Spacebar-Shoot</div>
-        <div>Enter-Pause/Play</div>
-      </div>
-      <div class="rocket" id="rocket"></div>
-      <div id="screen_text">PAUSED</div>
-      <button type="button" id="start_btn">START</button>
-      <button type="button" id="instructions_btn">INSTRUCTIONS</button>
-      <div class="header">
-        <h2 id="level"></h2>
-        <div class="life_container">
-          <div id="hp" class="hp1"></div>
-          <div id="hp" class="hp2"></div>
-          <div id="hp" class="hp3"></div>
+    <div class="page_container">
+      <div class="game_container" id="game_area">
+        <div class="inst_container" id="instructions">
+          <div>W-Up</div>
+          <div>A-Left</div>
+          <div>S-Down</div>
+          <div>D-Right</div>
+          <div>Spacebar-Shoot</div>
+          <div>Enter-Pause/Play</div>
         </div>
-        <div id="ammo"></div>
+        <div class="rocket" id="rocket"></div>
+        <div id="screen_text">PAUSED</div>
+        <button type="button" id="start_btn">START</button>
+        <button type="button" id="instructions_btn">INSTRUCTIONS</button>
+        <div class="header">
+          <h2 id="level"></h2>
+          <div class="life_container">
+            <div id="hp" class="hp1"></div>
+            <div id="hp" class="hp2"></div>
+            <div id="hp" class="hp3"></div>
+          </div>
+          <div id="ammo"></div>
+        </div>
+        <div class="footer">
+          <h2 id="score"></h2>
+          <h2 id="earth"></h2>
+        </div>
+        <div class="background" id="background"></div>
       </div>
-      <div class="footer">
-        <h2 id="score"></h2>
-        <h2 id="earth"></h2>
-      </div>
-      <div class="background" id="background"></div>
+      <audio id="music" src="Audio/warpPlatform.ogg" loop="loop"></audio>
+      <audio id="move" src="Audio/move.wav" loop="loop"></audio>
     </div>
-    <audio id="music" src="Audio/warpPlatform.ogg" loop="loop"></audio>
-    <audio id="move" src="Audio/move.wav" loop="loop"></audio>
   </body>
 </html>

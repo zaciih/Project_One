@@ -24,9 +24,16 @@ h1 {
   width: inherit;
 }
 
+.page_container {
+  display: flex;
+  /* position: relative; */
+  justify-content: center;
+}
+
 .game_container {
   display: flex;
-  position: relative;
+  /* justify-content: center; */
+  position: absolute;
   height: 600px;
   width: 600px;
   margin: auto;
