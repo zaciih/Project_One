@@ -1,6 +1,6 @@
-##Sparta Core Project 1
+## Sparta Core Project 1
 Code for the first task at Sparta created using HTML JavaScript and CSS.
-##Purpose
+## Purpose
 Build a browser based game using html, css and JavaScript.
 
 The choice of game was determined via research into existing HTML browser games. Endless scrollers are common and fairly simple to setup with the use of an animated background.
@@ -19,7 +19,7 @@ The functionality has been implemented using the following features:
 * CSS
 * Art/sound assets sourced from OpenGameArt.org
 
-##Project Breakdown
+## Project Breakdown
 The project was originally split into a step-by-step to-do list that would ensure the fundamentals of the game were completed within the timeframe. This list was as follows:
 
 1. Create the basic webpage layout.
@@ -33,5 +33,5 @@ The project was originally split into a step-by-step to-do list that would ensur
 9. Any remaining time can be used to tweak and tinker with existing mechanics to fine-tune them.
 10. Optionally have others play the game for testing purposes and take feedback onboard.
 
-##Usage
+## Usage
 The game can be opened and played in browser via this link: https://zaciih.github.io/Project_One/
