@@ -48,11 +48,7 @@ function game_start(){
   var progRunning = false;
   var game_over = false;
 
-//game_area collision
-  var container_left = container.offset().left;
-  var container_right = container_left + container.width();
-  var container_top = container.offset().top;
-  var container_bottom = container_top + container.height();
+
   var spawn_width = container.width() - 60;
   var spawn_height = 0;
   var spawn_rate = 10000;
@@ -222,7 +218,12 @@ function game_start(){
           $("#music").get(0).play();
           $("#music").prop("volume", 0.25);
         }
-        rocket_collision_check();
+        //game_area collision
+        var container_left = container.offset().left;
+        var container_right = container_left + container.width();
+        var container_top = container.offset().top;
+        var container_bottom = container_top + container.height();
+        rocket_collision_check(container_left, container_right, container_top, container_bottom);
         moveBullet();
         move_enemy();
         move_comet();
@@ -307,7 +308,7 @@ function game_start(){
     }
   }
 
-  function rocket_collision_check(){
+  function rocket_collision_check(container_left, container_right, container_top, container_bottom){
     var rocket_left = rocket.offset().left
     var rocket_right = rocket_left + rocket.width();
     var rocket_top = rocket.offset().top;
